@@ -1,0 +1,14 @@
+{
+    "location": {
+        "latitude": 1.00,
+        "longitude": 1.00
+    },
+    "extraComputations": [
+        "LOCAL_AQI"
+    ],
+    "customLocalAqis": [{
+    	"regionCode": "fr",
+	"aqi": "eaqi"
+    }],
+    "languageCode": "fr"
+}

@@ -1,0 +1,8 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO_NAME/base64file:$_VERSION', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO_NAME/base64file:$_VERSION']
+substitutions:
+  _REPO_NAME: kpt-fn
+  _VERSION: v0.0.1

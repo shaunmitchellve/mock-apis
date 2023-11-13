@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test
+data:
+  target-kind: APIGatewayAPIConfig
+  target-field: spec.openapiDocuments.document[0].contents
+  source-file: testdata/api-spec.yaml

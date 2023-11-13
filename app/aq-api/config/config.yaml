@@ -1,0 +1,5 @@
+address:
+port: 8080
+project_id:
+database_id: aq-mock-data
+collection_name: mock-data
