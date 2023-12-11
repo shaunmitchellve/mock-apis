@@ -14,17 +14,18 @@
 
 #!/bin/bash
 
-while getopts p:r: flag
+while getopts p:r:a: flag
 do
     case "${flag}" in
         p) project=${OPTARG};;
         r) region=${OPTARG};;
+        a) repo=${OPTARG};;
     esac
 done
 
-if [ ${#project} -eq 0 ] || [ ${#region} -eq 0 ]; then
+if [ ${#project} -eq 0 ] || [ ${#region} -eq 0 ] || [ ${#repo} -eq 0 ]; then
     echo "missing required field(s)\n"
-    echo "Usage: ./deploy.sh -p <project-id> -r <region>"
+    echo "Usage: ./deploy.sh -p <project-id> -r <region> -a <repo>"
     exit 1
 fi
 
@@ -51,7 +52,7 @@ kpt live apply infra/0-apis
 
 echo "Building AQ Mock API app"
 cd app/aq-api
-./build.sh -p $project -r $region -v $APP_VERSION
+./build.sh -p $project -r $region -v $APP_VERSION -a $repo
 cd ../../
 
 echo "Creating Firestore Database"
