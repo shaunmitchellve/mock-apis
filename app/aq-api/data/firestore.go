@@ -97,18 +97,29 @@ func FindLocation(lat float64, lng float64) (AQ, error) {
 
 // un marshall the Firestore document and put it into the AQ struct. Add missing data if needed
 func unMarshallAQ(record map[string]interface{}) AQ {
-	if record["aqi"] == nil {
+	if checkNil(record["aqi"]) {
 		record["aqi"] = convertInt("0")
 	}
 
-	if record["aqiDisplay"] == nil {
+	if checkNil(record["aqiDisplay"]) {
 		record["aqiDisplay"] = ""
 	}
 
-	if record["alpha"] == nil {
-		record["alpha"] = convertFloat("0")
+	if checkNil(record["alpha"]) {
+		record["alpha"] = 0.0
+	}
+	
+	if checkNil(record["green"]) {
+		record["green"] = 0.0
 	}
 
+	if checkNil(record["blue"]) {
+		record["blue"] = 0.0
+	}
+
+	if checkNil(record["red"]) {
+		record["red"] = 0.0
+	}
 	return AQ{
 		Longitude: record["longitude"].(float64),
 		Latitude: record["latitude"].(float64),
@@ -182,6 +193,15 @@ func checkError(msg string, e error) {
 	if e != nil {
 		log.Fatalf(msg + ": %v", e)
 	}
+}
+
+// Check if interface is nil
+func checkNil(d interface{}) bool {
+	if d == nil {
+		return true
+	}
+
+	return false
 }
 
 // convert a string to float64 type
