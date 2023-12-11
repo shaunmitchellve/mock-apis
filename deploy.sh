@@ -14,22 +14,22 @@
 
 #!/bin/bash
 
-while getopts p:r:a: flag
+while getopts p:r: flag
 do
     case "${flag}" in
         p) project=${OPTARG};;
         r) region=${OPTARG};;
-        a) repo=${OPTARG};;
     esac
 done
 
 if [ ${#project} -eq 0 ] || [ ${#region} -eq 0 ] || [ ${#repo} -eq 0 ]; then
     echo "missing required field(s)\n"
-    echo "Usage: ./deploy.sh -p <project-id> -r <region> -a <repo>"
+    echo "Usage: ./deploy.sh -p <project-id> -r <region>"
     exit 1
 fi
 
 APP_VERSION="v0.0.4"
+REPO="mock-apis"
 
 echo "Installing API Gateway alpha CRDs into Config Controller"
 git clone https://github.com/GoogleCloudPlatform/k8s-config-connector
@@ -52,7 +52,7 @@ kpt live apply infra/0-apis
 
 echo "Building AQ Mock API app"
 cd app/aq-api
-./build.sh -p $project -r $region -v $APP_VERSION -a $repo
+./build.sh -p $project -r $region -v $APP_VERSION -a $REPO
 cd ../../
 
 echo "Creating Firestore Database"
