@@ -85,8 +85,10 @@ The deploy script will attempt to perform the following actions:
 Setup some environment vars
 ```bash
 PROJECT_ID=<GCP-PROJECT-ID>
-REGION=<GCP-$REGION>
+REGION=<GCP-REGION>
 ADMIN_USER=<USER-ACCOUNT-EMAIL>
+VERSION=<API-VERSION>
+REPO=<ARTIFICAT-REGISTRY-NAME>
 ```
 
 1. Create a Google Cloud project
@@ -116,7 +118,7 @@ gcloud artifacts repositories create REPO_NAME --location=$REGION --repository-f
 5. Build the GOLANG mock API service / container
 
 ```bash
-gcloud builds submit . --project=$PROJECT_ID --config=cloudbuild.yaml --substitutions=_$PROJECT_ID=$PROJECT_ID,_$REGION=$REGION
+gcloud builds submit . --project=$PROJECT_ID --config=cloudbuild.yaml --substitutions=_PROJECT_ID=$PROJECT_ID,_REGION=$REGION,_VERSION=$VERSION,_REPO=$REPO
 ```
 
 6. Create Firestore collection
